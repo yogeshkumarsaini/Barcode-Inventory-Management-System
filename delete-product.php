@@ -24,4 +24,5 @@ if($product)
 
 header("Location: products.php");
 exit();
+
 ?>

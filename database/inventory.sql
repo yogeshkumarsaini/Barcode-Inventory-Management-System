@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 CREATE DATABASE inventory_db;
 USE inventory_db;
 
@@ -32,4 +33,5 @@ CREATE TABLE stock_transactions (
     quantity INT,
     transaction_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY(product_id) REFERENCES products(id)
+
 );
