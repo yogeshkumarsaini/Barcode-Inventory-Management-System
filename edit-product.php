@@ -4,11 +4,18 @@ include 'includes/auth.php';
 include 'includes/db.php';
 include 'barcode-generator.php';
 
-$id = $_GET['id'];
+$id = (int)$_GET['id'];
 
-$product = $conn->query(
-"SELECT * FROM products WHERE id='$id'"
-)->fetch_assoc();
+$stmt = $conn->prepare(
+    "SELECT * FROM products WHERE id=?"
+);
+
+$stmt->bind_param("i", $id);
+$stmt->execute();
+
+$product = $stmt->get_result()->fetch_assoc();
+
+$stmt->close();
 
 if(isset($_POST['update']))
 {
@@ -31,18 +38,30 @@ if(isset($_POST['update']))
         );
     }
 
-    $sql = "UPDATE products SET
+    $stmt = $conn->prepare(
+        "UPDATE products SET
+            barcode=?,
+            product_name=?,
+            category=?,
+            price=?,
+            quantity=?,
+            image=?
+        WHERE id=?"
+    );
 
-        barcode='$barcode',
-        product_name='$name',
-        category='$category',
-        price='$price',
-        quantity='$quantity',
-        image='$imageName'
+    $stmt->bind_param(
+        "sssdisi",
+        $barcode,
+        $name,
+        $category,
+        $price,
+        $quantity,
+        $imageName,
+        $id
+    );
 
-        WHERE id='$id'";
-
-    $conn->query($sql);
+    $stmt->execute();
+    $stmt->close();
 
     generateBarcode($barcode);
 

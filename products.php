@@ -59,11 +59,11 @@ $result = $conn->query("SELECT * FROM products ORDER BY id DESC");
 
                 <br>
 
-                <a href="<?= $barcodeImage; ?>"
+                <a href="printbarcode.php?barcode=<?= $row['barcode']; ?>"
                 target="_blank"
                 class="btn btn-info btn-sm mt-1">
                 Print
-                </a>
+                </>
 
                 <?php } ?>
 

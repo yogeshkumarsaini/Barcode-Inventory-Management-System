@@ -3,11 +3,18 @@
 include 'includes/auth.php';
 include 'includes/db.php';
 
-$id = $_GET['id'];
+$id = (int)$_GET['id'];
 
-$product = $conn->query(
-"SELECT image FROM products WHERE id='$id'"
-)->fetch_assoc();
+$stmt = $conn->prepare(
+    "SELECT image FROM products WHERE id=?"
+);
+
+$stmt->bind_param("i", $id);
+$stmt->execute();
+
+$product = $stmt->get_result()->fetch_assoc();
+
+$stmt->close();
 
 if($product)
 {
@@ -17,9 +24,12 @@ if($product)
         unlink("uploads/".$product['image']);
     }
 
-    $conn->query(
-    "DELETE FROM products WHERE id='$id'"
-    );
+    $stmt = $conn->prepare("DELETE FROM products WHERE id=?");
+
+    $stmt->bind_param("i", $id);
+    $stmt->execute();
+
+    $stmt->close();
 }
 
 header("Location: products.php");

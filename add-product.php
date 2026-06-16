@@ -29,26 +29,20 @@ if(isset($_POST['save']))
         );
     }
 
-    $sql = "INSERT INTO products
-    (
-        barcode,
-        product_name,
-        category,
-        price,
-        quantity,
-        image
-    )
-    VALUES
-    (
-        '$barcode',
-        '$name',
-        '$category',
-        '$price',
-        '$quantity',
-        '$imageName'
-    )";
+    $stmt = $conn->prepare("INSERT INTO products(barcode, product_name, category, price, quantity, image) VALUES (?, ?, ?, ?, ?, ?)");
 
-    $conn->query($sql);
+    $stmt->bind_param(
+        "sssdis",
+        $barcode,
+        $name,
+        $category,
+        $price,
+        $quantity,
+        $imageName
+    );
+
+    $stmt->execute();
+    $stmt->close();
 
     generateBarcode($barcode);
 
@@ -67,8 +61,7 @@ include 'includes/header.php';
     <label>Barcode</label>
     <input type="text"
            name="barcode"
-           class="form-control"
-           required>
+           class="form-control">
 </div>
 
 <div class="mb-3">

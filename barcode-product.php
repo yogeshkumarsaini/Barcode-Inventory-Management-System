@@ -3,14 +3,18 @@
 include 'includes/auth.php';
 include 'includes/db.php';
 
-$barcode = $_GET['barcode'];
+$barcode = trim($_GET['barcode']);
 
-$sql =
-"SELECT * FROM products
- WHERE barcode='$barcode'
- LIMIT 1";
+$stmt = $conn->prepare(
+    "SELECT * FROM products
+     WHERE barcode=?
+     LIMIT 1"
+);
 
-$result = $conn->query($sql);
+$stmt->bind_param("s", $barcode);
+$stmt->execute();
+
+$result = $stmt->get_result();
 
 if($result->num_rows > 0)
 {
@@ -24,4 +28,5 @@ else
         "error"=>"Product Not Found"
     ]);
 }
+$stmt->close();
 ?>

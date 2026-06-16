@@ -7,7 +7,12 @@ if(isset($_POST['login']))
     $username = $_POST['username'];
     $password = $_POST['password'];
 
-    $sql = "SELECT * FROM users WHERE username='$username'";
+    $stmt = $conn->prepare("SELECT * FROM users WHERE username=?");
+
+    $stmt->bind_param("s", $username);
+    $stmt->execute();
+
+    $result = $stmt->get_result();
     $result = $conn->query($sql);
 
     if($result->num_rows > 0)

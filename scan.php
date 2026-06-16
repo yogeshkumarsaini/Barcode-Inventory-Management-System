@@ -79,16 +79,15 @@ function onScanSuccess(decodedText)
 
 var html5QrcodeScanner =
 new Html5QrcodeScanner(
-"reader",
-{
-fps:10,
-qrbox:250
-}
+    "reader",
+    {
+        fps: 10,
+        qrbox: 250,
+        supportedScanTypes: [Html5QrcodeScanType.SCAN_TYPE_CAMERA]
+    }
 );
 
-html5QrcodeScanner.render(
-onScanSuccess
-);
+html5QrcodeScanner.render(onScanSuccess);
 
 </script>
 
