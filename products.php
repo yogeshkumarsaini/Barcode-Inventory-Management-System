@@ -1,9 +1,9 @@
 <?php
-include 'includes/auth.php';
-include 'includes/db.php';
-include 'includes/header.php';
+    include 'includes/auth.php';
+    include 'includes/db.php';
+    include 'includes/header.php';
 
-$result = $conn->query("SELECT * FROM products ORDER BY id DESC");
+    $result = $conn->query("SELECT * FROM products ORDER BY id DESC");
 ?>
 
 <div class="d-flex justify-content-between mb-3">
@@ -31,77 +31,67 @@ $result = $conn->query("SELECT * FROM products ORDER BY id DESC");
 
     <tbody>
 
-    <?php while($row = $result->fetch_assoc()) { ?>
+        <?php while($row = $result->fetch_assoc()) { ?>
 
-        <tr>
+            <tr>
 
-            <td><?= $row['id']; ?></td>
+                <td><?= $row['id']; ?></td>
 
-            <td>
+                <td>
 
-                <?= $row['barcode']; ?>
+                    <?= $row['barcode']; ?>
 
-                <br>
+                    <br>
 
-                <?php
+                    <?php
 
-                $barcodeImage =
-                "barcode/generated/".
-                $row['barcode'].
-                ".png";
+                        $barcodeImage = "barcode/generated/".$row['barcode'].".png";
 
-                if(file_exists($barcodeImage))
-                {
-                ?>
+                        if(file_exists($barcodeImage))
+                        {
+                    ?>
 
-                <img src="<?= $barcodeImage; ?>"
-                    width="180">
+                    <img src="<?= $barcodeImage; ?>"  width="180">
 
-                <br>
+                    <br>
 
-                <a href="printbarcode.php?barcode=<?= $row['barcode']; ?>"
-                target="_blank"
-                class="btn btn-info btn-sm mt-1">
-                Print
-                </>
+                    <a href="printbarcode.php?barcode=<?= $row['barcode']; ?>" target="_blank" class="btn btn-info btn-sm mt-1">
+                        Print
+                    </a>
 
-                <?php } ?>
+                    <?php } ?>
 
-            </td>
+                </td>
 
-            <td>
-                <?php if($row['image']) { ?>
-                    <img src="uploads/<?= $row['image']; ?>"
-                         width="60">
-                <?php } ?>
-            </td>
+                <td>
+                    <?php if($row['image']) { ?>
+                        <img src="uploads/<?= $row['image']; ?>"  width="60">
+                    <?php } ?>
+                </td>
 
-            <td><?= $row['product_name']; ?></td>
+                <td><?= $row['product_name']; ?></td>
 
-            <td><?= $row['category']; ?></td>
+                <td><?= $row['category']; ?></td>
 
-            <td>₹<?= $row['price']; ?></td>
+                <td>₹<?= $row['price']; ?></td>
 
-            <td><?= $row['quantity']; ?></td>
+                <td><?= $row['quantity']; ?></td>
 
-            <td>
+                <td>
 
-                <a href="edit-product.php?id=<?= $row['id']; ?>"
-                   class="btn btn-warning btn-sm">
-                   Edit
-                </a>
+                    <a href="edit-product.php?id=<?= $row['id']; ?>" class="btn btn-warning btn-sm">
+                        Edit
+                    </a>
 
-                <a href="delete-product.php?id=<?= $row['id']; ?>"
-                   class="btn btn-danger btn-sm"
-                   onclick="return confirm('Delete Product?')">
-                   Delete
-                </a>
+                    <a href="delete-product.php?id=<?= $row['id']; ?>" class="btn btn-danger btn-sm" onclick="return confirm('Delete Product?')">
+                        Delete
+                    </a>
 
-            </td>
+                </td>
 
-        </tr>
+            </tr>
 
-    <?php } ?>
+        <?php } ?>
 
     </tbody>
 

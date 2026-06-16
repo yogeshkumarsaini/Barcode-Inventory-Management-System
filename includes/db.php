@@ -1,14 +1,14 @@
 <?php
 
-$host = "localhost";
-$user = "root";
-$pass = "";
-$db   = "inventory_db";
+    $host = "localhost";
+    $user = "root";
+    $pass = "";
+    $db   = "inventory_db";
 
-$conn = new mysqli($host,$user,$pass,$db);
+    $conn = new mysqli($host,$user,$pass,$db);
 
-if($conn->connect_error){
-    die("Connection Failed : " . $conn->connect_error);
-}
+    if($conn->connect_error){
+        die("Connection Failed : " . $conn->connect_error);
+    }
 
 ?>

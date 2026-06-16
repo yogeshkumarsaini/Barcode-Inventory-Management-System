@@ -1,26 +1,24 @@
 <?php
 
-require_once 'vendor/autoload.php';
+    require_once 'vendor/autoload.php';
 
-function generateBarcode($barcodeNumber)
-{
-    $generator =
-        new Picqer\Barcode\BarcodeGeneratorPNG();
-
-    $barcodePath =
-        'barcode/generated/'.$barcodeNumber.'.png';
-
-    if(!file_exists($barcodePath))
+    function generateBarcode($barcodeNumber)
     {
-        file_put_contents(
-            $barcodePath,
-            $generator->getBarcode(
-                $barcodeNumber,
-                $generator::TYPE_CODE_128
-            )
-        );
-    }
+        $generator =  new Picqer\Barcode\BarcodeGeneratorPNG();
 
-    return $barcodePath;
-}
+        $barcodePath = 'barcode/generated/'.$barcodeNumber.'.png';
+
+        if(!file_exists($barcodePath))
+        {
+            file_put_contents(
+                $barcodePath,
+                $generator->getBarcode(
+                    $barcodeNumber,
+                    $generator::TYPE_CODE_128
+                )
+            );
+        }
+
+        return $barcodePath;
+    }
 ?>

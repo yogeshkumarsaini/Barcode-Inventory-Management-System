@@ -1,4 +1,5 @@
 CREATE DATABASE inventory_db;
+
 USE inventory_db;
 
 CREATE TABLE users (
@@ -8,10 +9,7 @@ CREATE TABLE users (
 );
 
 INSERT INTO users(username,password)
-VALUES(
-'admin',
-'$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi'
-);
+VALUES('admin','$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi');
 /* password = password */
 
 CREATE TABLE products (

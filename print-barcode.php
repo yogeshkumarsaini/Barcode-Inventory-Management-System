@@ -1,26 +1,25 @@
 <?php
 
-$barcode = $_GET['barcode'];
+    $barcode = $_GET['barcode'];
 
-$image =
-"barcode/generated/".$barcode.".png";
+    $image = "barcode/generated/".$barcode.".png";
 ?>
 
 <!DOCTYPE html>
 <html>
-<head>
-<title>Print Barcode</title>
-</head>
+    <head>
+        <title>Print Barcode</title>
+    </head>
 
-<body onload="window.print()">
+    <body onload="window.print()">
 
-<center>
+        <center>
 
-<h3><?= $barcode ?></h3>
+            <h3><?= $barcode ?></h3>
 
-<img src="<?= $image ?>">
+            <img src="<?= $image ?>">
 
-</center>
+        </center>
 
-</body>
+    </body>
 </html>

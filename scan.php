@@ -1,7 +1,7 @@
 <?php
 
-include 'includes/auth.php';
-include 'includes/header.php';
+    include 'includes/auth.php';
+    include 'includes/header.php';
 
 ?>
 
@@ -15,79 +15,79 @@ include 'includes/header.php';
 
 <script>
 
-function onScanSuccess(decodedText)
-{
-    fetch(
-    'barcode-product.php?barcode='+
-    decodedText
-    )
+    function onScanSuccess(decodedText)
+    {
+        fetch(
+        'barcode-product.php?barcode='+
+        decodedText
+        )
 
-    .then(response=>response.json())
+        .then(response=>response.json())
 
-    .then(data=>{
+        .then(data=>{
 
-        if(data.error)
-        {
+            if(data.error)
+            {
+                document.getElementById(
+                'result'
+                ).innerHTML=
+
+                '<div class="alert alert-danger">'+
+                data.error+
+                '</div>';
+
+                return;
+            }
+
             document.getElementById(
             'result'
             ).innerHTML=
 
-            '<div class="alert alert-danger">'+
-            data.error+
-            '</div>';
+            `
+            <div class="card">
 
-            return;
-        }
+                <div class="card-body">
 
-        document.getElementById(
-        'result'
-        ).innerHTML=
+                    <h4>${data.product_name}</h4>
 
-        `
-        <div class="card">
+                    <p>
+                    Barcode:
+                    ${data.barcode}
+                    </p>
 
-            <div class="card-body">
+                    <p>
+                    Category:
+                    ${data.category}
+                    </p>
 
-                <h4>${data.product_name}</h4>
+                    <p>
+                    Price:
+                    ₹${data.price}
+                    </p>
 
-                <p>
-                Barcode:
-                ${data.barcode}
-                </p>
+                    <p>
+                    Stock:
+                    ${data.quantity}
+                    </p>
 
-                <p>
-                Category:
-                ${data.category}
-                </p>
-
-                <p>
-                Price:
-                ₹${data.price}
-                </p>
-
-                <p>
-                Stock:
-                ${data.quantity}
-                </p>
+                </div>
 
             </div>
-
-        </div>
-        `;
-    });
-}
-
-var html5QrcodeScanner =
-new Html5QrcodeScanner(
-    "reader",
-    {
-        fps: 10,
-        qrbox: 250,
-        supportedScanTypes: [Html5QrcodeScanType.SCAN_TYPE_CAMERA]
+            `;
+        });
     }
-);
 
-html5QrcodeScanner.render(onScanSuccess);
+    var html5QrcodeScanner =
+    new Html5QrcodeScanner(
+        "reader",
+        {
+            fps: 10,
+            qrbox: 250,
+            supportedScanTypes: [Html5QrcodeScanType.SCAN_TYPE_CAMERA]
+        }
+    );
+
+    html5QrcodeScanner.render(onScanSuccess);
 
 </script>
 
